@@ -11,6 +11,12 @@ session_start();
 //require_once("security.php"); //- org umum boleh daftar
 
 //if($HTTP_POST_VARS[action] and $$admin_key=="root")
+//Filter function
+function h($string)
+        {
+                return htmlspecialchars($string, ENT_QUOTES);
+        }
+//
 if($HTTP_POST_VARS[action])
 {
 	extract($HTTP_POST_VARS,EXTR_OVERWRITE);
@@ -35,6 +41,12 @@ if($HTTP_POST_VARS[action])
 		$conn_id = connect();
 		$default_password = $user_password; //random_password(10);
 		$password = md5($default_password);
+// Filter input data
+                $user_id = h($user_id);
+                $user_email = h($user_email);
+                $user_name = h($user_name);
+                $password = h($password);
+//
 		$query = "
 		INSERT INTO master_user (user_id,user_email,user_name,user_password,user_level) 
 		VALUES ('$user_id','$user_email','$user_name','$password','1')
