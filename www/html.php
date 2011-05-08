@@ -16,6 +16,10 @@ if(empty($id)) $id=1;
 $web = new speed_template($template_path);
 $web->register($template_name);
 
+//Fix SQL injection
+settype($id, 'integer');
+//
+
 $query = "
 SELECT *
 FROM webpg 
