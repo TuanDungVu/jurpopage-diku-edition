@@ -83,6 +83,11 @@ $web = new speed_template($template_path);
 $template_name ="form_note";
 $web->register($template_name);
 
+//Fix SQL Injection
+settype($note, 'integer');
+settype($category, 'integer');
+//
+
 if( (isset($note) && $note) || (isset($category) && $category) ) {
 	if(! empty($category)) { //- no category found
 		$query = "SELECT page_id AS active_page_id FROM category WHERE category_id='$category'";
@@ -175,6 +180,9 @@ else {
 	unset($active_page_title);
 	$template_name ="form_note_index";
 	$web->register($template_name);
+// Fix SQL Injection
+        settype($pg, 'integer');
+//
 	if( $pg ) {
 		$active_page_id = $pg;
 		$query = "SELECT * FROM page WHERE page_id='$pg'";
