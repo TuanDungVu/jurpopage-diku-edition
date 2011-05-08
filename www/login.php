@@ -34,6 +34,9 @@ if($HTTP_POST_VARS[action])
 		$conn_id = connect();
 		//--- check apakah ada nama user tersebut
 		//master user
+//Filter input data
+                $send_user = htmlspecialchars($send_user, ENT_QUOTES);
+//
 		$query = "
 		SELECT 
 			count(*) as user_exist 
